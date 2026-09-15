@@ -15,7 +15,7 @@ pipeline{
         }
         stage('Checkout from Git'){
             steps{
-                git branch: 'main', url: 'https://github.com/bhandariajay006/Zomato-DevSecOps.git'
+                git branch: 'main', url: 'https://git@github.com:Pankaj-Pawar/zomato-clone.git'
             }
         }
         stage("Sonarqube Analysis "){
@@ -54,20 +54,20 @@ pipeline{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
                        sh "docker build -t zomato ."
-                       sh "docker tag zomato bhandariajay006/zomato:latest "
-                       sh "docker push bhandariajay006/zomato:latest "
+                       sh "docker tag zomato pankaj1515/zomato-clone:v1"
+                       sh "docker push pankaj1515/zomato-clone:v1"
                     }
                 }
             }
         }
         stage("TRIVY Image Scan"){
             steps{
-                sh "trivy image bhandariajay006/zomato:latest > trivy.txt" 
+                sh "trivy image pankaj1515/zomato-clone:v1 > trivy.txt" 
             }
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name zomato -p 3000:3000 bhandariajay006/zomato:latest'
+                sh 'docker run -d --name zomato -p 3000:3000 pankaj1515/zomato-clone:v1'
             }
         }
       stage('Deploy to kubernetes'){
