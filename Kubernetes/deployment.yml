@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: zomato
-        image: prakharm1234/zomato-july:v1
+        image: pankaj1515/zomato-clone:v1
         ports:
         - containerPort: 3000  # Port your application listens on
